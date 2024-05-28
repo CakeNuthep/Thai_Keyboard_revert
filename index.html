@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyboard Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            resize: none;
+        }
+        button {
+            display: inline-block;
+            width: 48%;
+            padding: 10px;
+            margin-right: 2%;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .output {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #333;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Keyboard Converter</h1>
+        <textarea id="inputText" placeholder="Type text here..."></textarea>
+        <button onclick="convertText('engToThai')">Convert to Thai</button>
+        <button onclick="convertText('thaiToEng')">Convert to English</button>
+        <div class="output" id="outputText"></div>
+    </div>
+
+    <script>
+        const engToThaiMap = {
+            'a': 'ฟ', 'b': 'ิ', 'c': 'แ', 'd': 'ก', 'e': 'ำ', 'f': 'ด', 'g': 'เ', 'h': 'ั',
+            'i': 'ร', 'j': '่', 'k': 'า', 'l': 'ส', 'm': 'ท', 'n': 'ื', 'o': 'น', 'p': 'ย',
+            'q': 'ๆ', 'r': 'พ', 's': 'ห', 't': 'ะ', 'u': 'ี', 'v': 'อ', 'w': 'ไ', 'ป': '',
+            'y': 'ั', 'z': 'ผ',
+            'A': 'ฤ', 'B': 'ฺ', 'C': 'ฉ', 'D': 'ฏ', 'E': 'ฎ', 'F': 'โ', 'G': 'ฌ', 'H': '็',
+            'I': 'ณ', 'J': '๋', 'K': 'ษ', 'L': 'ศ', 'M': '?', 'N': '์', 'O': 'ฯ', 'P': 'ญ',
+            'Q': '๐', 'R': 'ฑ', 'S': 'ฆ', 'T': 'ธ', 'U': '๊', 'V': 'ฮ', 'W': '"', 'X': ')',
+            'Y': 'ํ', 'Z': '(',
+            ';': 'ว', ':': 'ซ', '\'': 'ง', '"': '.', '[': 'บ', ']': 'ล', '{': 'ฐ', '}': ',',
+            '\\': 'ฃ', '|': 'ฅ', ',': 'ม', '<': 'ฒ', '.': 'ใ', '>': 'ฬ', '/': 'ฝ', '?': 'ฦ',
+            '1':'ๅ','2':'/','3':'-','4':'ภ','5':'ถ','6':'ุ','7':'ึ','8':'ค','9':'ต','0':'จ',
+                         '-':'ข','=':'ช',
+            '!':'+','@':'๑','#':'๒','$':'๓','%':'๔','^':'ู','&':'฿','*':'๕','(':'๖',')':'๗',
+                         '_':'๘','+':'๙'
+        };
+
+        const thaiToEngMap = Object.fromEntries(
+            Object.entries(engToThaiMap).map(([key, value]) => [value, key])
+        );
+
+        function convertText(type) {
+            const inputText = document.getElementById('inputText').value;
+            let outputText = '';
+
+            if (type === 'engToThai') {
+                outputText = inputText.split('').map(char => engToThaiMap[char] || char).join('');
+            } else if (type === 'thaiToEng') {
+                outputText = inputText.split('').map(char => thaiToEngMap[char] || char).join('');
+            }
+
+            document.getElementById('outputText').innerText = outputText;
+        }
+    </script>
+</body>
+</html>
